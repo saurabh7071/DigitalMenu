@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Croissant+One&display=swap');
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 4rem;
+    transition: all 300ms ease;
+}
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    font-size: 22px;
+    align-items: center;
+    justify-content: center;
+    height: 4%;
+}
+.logo img{
+    height: 7rem;
+    width: 7rem;
+    margin-top: 20px;
+}
+.logo span{
+    margin-top: 3px;
+    font-family: 'Croissant One', cursive;
+}
+.logo span span{
+    color: var(--dark-pink);
+}
+
+.menu{
+    margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.menuItem a{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 3.7rem;
+    position: relative;
+    transition: all 300ms ease;
+    font-size: 17px;
+    border-radius: 0.7rem;
+    padding:20px 0;
+    color:rgb(97, 84, 84);
+}
+.menuItem i{
+    margin-left: 1rem;
+}
+.menuItem:hover{
+    cursor: pointer;
+}
+
+#message{
+    background: #7380ec;
+    color:aliceblue;
+    padding: 2px 10px;
+    font-size: 11px;
+    border-radius: 0.4rem;
+}
+
+.menuItem a button{
+    font-size: 15px;
+}
+.menuItem a:last-child{
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+.menuItem a.nav-link.active{
+    background: #f799a354;
+    color: var(--dark-pink);
+    margin-left: 0;
+}
+.menuItem a.nav-link.active:before{
+    content: '';
+    width: 8px;
+    height: 3.7rem;
+    background: var(--dark-pink);
+}
+.menuItem a i{
+    transform: scale(1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.menuItem a:hover i{
+     transform: scale(1.3);
+}
+
+
+
+

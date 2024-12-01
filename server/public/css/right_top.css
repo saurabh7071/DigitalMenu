@@ -1,0 +1,31 @@
+.right{
+    margin-top: 1.3rem;
+}
+.right .top{
+    display: flex;
+    justify-content: end;
+    gap: 1.5rem;
+}
+.right .profile-photo img{
+    height: 4rem;
+    width: 4rem;
+}
+.right .top .profile{
+    background: var(--activeItem);
+    width: 82%;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    box-shadow: 0 1rem 3rem var(--color-light);
+    transition: all 300ms ease;
+    display: flex;
+    gap: 1rem;
+}
+.right .top .info{
+    margin-top: 0.4rem;
+    text-align: end;
+    justify-content: end;
+}
+.right .top .info .text-muted{
+    color:var(--dark-pink);
+}

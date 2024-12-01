@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/UserMenu_SignUp.css">
+    <title>Registration Page</title>
+</head>
+<body>
+    <div class="wrapper">
+        <form action="/UserMenu_SignUp" method="POST" id="registration-form" onsubmit="return validateForm()">
+            <h1>Register</h1>
+            <div class="input-box">
+                <input type="text" id="username" name="username" placeholder="Full Name" required>
+                <i class='bx bxs-user' ></i>
+            </div>
+            <div class="input-box">
+                <input type="number" id="phonenumber" name="phonenumber" placeholder="Phone Number" required>
+                <i class='bx bx-phone'></i>
+            </div>
+            <div class="input-box">
+                <input type="email" id="email" name="email" placeholder="E-mail" required> 
+                <i class='bx bxs-envelope' ></i>
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" placeholder="Password" name="password" required> 
+                <i class='bx bxs-lock-alt' ></i>
+                <span id="password-error" class="error"></span> <!-- New element for the error message -->
+            </div>
+            
+            <div class="remember-forgot">
+                <!-- <label><input type="checkbox">Remember me</label> -->
+                <a href="#">Forgot Password</a>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+
+            <div class="register-link">
+                <p>Already hava an account<a href="UserMenu_loginpage"> Login</a></p>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+        function validateForm() {
+            const username = document.getElementById("username").value;
+            const phonenumber = document.getElementById("phonenumber").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+        
+            const passwordError = document.getElementById("password-error"); // Get the error element
+
+            if (username.trim() === "" || phonenumber.trim() === "" || email.trim() === "" || password.trim() === "") {
+                passwordError.textContent = "All fields are required"; // Set error message
+                return false;
+            } else {
+                passwordError.textContent = ""; // Clear the error message
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

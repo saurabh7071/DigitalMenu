@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <link rel="stylesheet" href="/css/Orders.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <main class="boxes">
+                <div class="lowerbox">
+                    <h4>Orders</h4>
+                    <div class="lowerbox-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Table Number</th>
+                                    <th>Items</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each orders}}
+                                <tr>
+                                    <td>{{name}}</td>
+                                    <td>{{PhoneNumber}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{TableNumber}}</td>
+                                    <td>
+                                        {{#each items}}
+                                        {{this.itemName}}
+                                        {{#unless @last}}, {{/unless}}
+                                        {{/each}}
+                                    </td>
+                                    <td>{{totalPrice}}</td>
+                                    <td>
+                                        <select class="status-dropdown">
+                                            <option value="Choose Type">Choose Type</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Delivered">Delivered</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                            <option value="On the Way">On the Way</option>
+                                        </select>
+                                    </td>
+                                    <td><a href="#">Details</a></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <link rel="stylesheet" href="/css/Categories_add.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <!-- -------------- Start of main ---------------- -->
+            <main>
+                <div class="addCategorieBox">
+                    <h2>Add New Category</h2>
+                    <div class="addCategorieBoxInside">
+                        <div class="addCategorieBoxInputField">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" required value="{{this.title}}">
+
+                            <label for="description">Category Description</label>
+                            <textarea name="description" cols="95" rows="3">{{this.description}}</textarea>
+
+                            <div class="buttons">
+                                <button class="cancel-button"  onclick="cancelCategoryAdd()">Cancel</button>
+                                <button class="submit-button" onclick="addCategory()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="successPopup" class="popup">
+                    <div class="popup_content">
+                        <p><i class="fa-solid fa-check"></i>Category added successfully!</p>
+                    </div>
+                </div>
+            </main>
+            
+            <!-- ------------ End of Main --------------- -->
+            
+        </div>
+    </div>
+    <script>
+        function addCategory(){
+            const title = document.querySelector('input[type="text"]').value;
+            const description = document.querySelector('textarea').value;
+
+            fetch('/Categories_add',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({title,description})
+            })
+            .then(Response => Response.text())
+            .then(data => {
+                $('#successPopup').fadeIn();
+                console.log(data);
+
+                // Clear input fields after success
+                document.querySelector('input[name="title"]').value = '';
+                document.querySelector('textarea[name="description"]').value = '';
+                
+                // Hide the popup after 5 sec
+                setTimeout(function() {
+                    $('#successPopup').fadeOut();
+                }, 5000);
+            })
+            .catch(err => console.error('Error:',err));
+        }
+
+        function cancelCategoryAdd() {
+            window.location.href = '/Categories';
+        }
+        
+        $(document).ready(function() {
+            // Hide the popup when clicking anywhere on the window
+            $(window).click(function() {
+                $('#successPopup').fadeOut();
+            });
+        });
+    </script>
+</body>
+
+</html>

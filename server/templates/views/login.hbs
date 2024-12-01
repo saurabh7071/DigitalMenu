@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>log in</title>
+    <link rel="stylesheet" type="text/css" href="/css/loginpage.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="side">
+            <img src="/images/side.jpg" alt="error">
+        </div>
+        <div class="form-box">
+            <h1 id="title">Sign In</h1>
+            <form action="/login" method="POST">
+                <div class="input-field">
+                    <i class="fa fa-envelope-o"></i>
+                    <input type="email" placeholder="Email" name="email" required>
+                </div>
+                <div class="input-field">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password" required>
+                </div>
+                <p><a href="#">Forget Password?</a></p>
+                <div class="btn-field">
+                    <button type="submit" id="signinBtn" value="signin">Sign in</button>
+                </div>
+                <div>
+                    <span>Don't have an Accournt? <a href="/index">Sign Up</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

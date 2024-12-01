@@ -1,0 +1,87 @@
+
+.boxi{
+    width: 400px;
+    padding: 25px 35px;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 10px;
+}
+
+.boxi p{
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+}
+
+.boxi input{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #7380ec;
+    outline: 0;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border-radius: 5px;
+}
+
+.boxi button{
+    width: 100%;
+    height: 50px;
+    background: #FA2555;
+    color:#FFFFFF;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+    box-shadow: 1 10px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin: 20px 0;
+    font-weight: 500;
+}
+
+.boxi canvas {
+    /* max-height: 0;
+    overflow: hidden;
+    margin-left: 15%;
+    transition: max-height 0.3s ease-in-out; Added transition */
+    width: 200px; /* Adjust as needed */
+    height: 200px; /* Adjust as needed */
+    border: 1px solid #d1d1d1;
+    padding: 10px;
+    transition: max-height 0.3s ease-in-out;
+    margin-left: 20%;
+}
+
+.boxi button:focus+canvas {
+    max-height: 300px;
+    border: 1px solid #d1d1d1;
+    padding: 10px;
+}
+
+.qr-visible {
+    border: 1px solid #d1d1d1;
+    padding: 10px;
+}
+
+.error{
+    animation: shake 0.1s linear 10;
+}
+@keyframes shake {
+    0%{
+        transform: translateX(0);
+    }
+    25%{
+        transform: translateX(-2px);
+    }
+    50%{
+        transform: translateX(0);
+    }
+    75%{
+        transform: translateX(2px);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}

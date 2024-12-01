@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/UserMenu.css">
+    <!-- font:Notosnas -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap">
+    <!-- icons:font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Quick Dine_Delight</title>
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <!-- header -->
+    <input type="checkbox" id="cart">
+    <label for="cart" class="label-cart"><span class="fas fa-shopping-cart"></span></label>
+    <button class="login-btn" id="loginButton"><a href="UserMenu_loginpage">Login</a></button>
+    <h3 class="logo"><span class="logo-text">Quick Dinning Delight</span></h3>
+    <div class="search-bar">
+        <span class="fas fa-search"></span>
+        <input type="text" placeholder="Search">
+    </div>
+
+    <!-- main dashbaord -->
+    <div class="dashboard">
+        <div class="dashboard-banner">
+            {{#if latestImage}}
+            <img src="{{latestImage.base64Image}}" alt="{{latestImage.title}}">
+            {{else}}
+            <p>No image available</p>
+            {{/if}}
+        </div>
+
+
+        <h3 class="dashboard-title">Recommend Food For You</h3>
+        <!-- <div class="dashboard-menu">
+            <a class="menu-item active" data-category="all">All</a>
+            {{#each categories}}
+            <a class="menu-item" data-category="{{this.title}}">{{this.title}}</a>
+            {{/each}}
+        </div> -->
+
+        <!-- <div id="cakes" class="cakes"> -->
+        <div class="dashboard-content">
+            {{#each MenuItems}}
+            <div class="dashboard-card">
+                <img src="data:{{this.image.contentType}};base64,{{base64Image}}" alt="{{this.title}}"
+                    class="card-image">
+                <div class="card-detail">
+                    <h4>{{this.title}}<span>${{this.price}}</span></h4>
+                    <p>{{this.description}}</p>
+                    <p class="card-time"></p>
+                </div>
+                <button class="add-to-cart-btn" data-name="{{this.title}}" data-price="{{this.price}}"
+                    data-img="data:{{this.image.contentType}};base64,{{base64Image}}">Add to Cart</button>
+
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <!-- order dashboard -->
+    <div class="dashboard-order" id="dashboard-order">
+        <div class="dashboard-text">
+            <h3>Order Menu</h3>
+            <div class="order-address">
+                <p>Address Delivery</p>
+                <h4>221 B Baker Street, London</h4>
+            </div>
+            <div class="order-time">
+                <span class="fas fa-clock"></span> 30 mins <span class="fas fa-map-marker-alt"></span> 2 Km
+            </div>
+
+            <div class="cart-wrapper">
+                <h3>Your Cart</h3>
+                <div class="order-items-container">
+                    <!-- Selected items will be displayed here -->
+                </div>
+                <button id="close-cart">Close Cart</button>
+            </div>
+
+            <hr class="divider">
+            <div class="order-total">
+                <p>Subtotal <span class="subtotal">$0</span></p>
+                <p>Tax (10%) <span class="tax">$0</span></p>
+                <p>Delivery Fee <span>$0.</span></p>
+                <hr class="divider">
+                <p>Total<span id="grand-total">$0.00</span></p>
+            </div>
+            <a href="/Order_Details" class="checkout">Checkout</a>
+            <!-- <button>Checkout</button> -->
+        </div>
+    </div>
+
+    <script src="/javascript/MenuFitering.js"></script>
+    <script src="/javascript/UserMenu_Cart.js"></script>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get all the category links
+            const categoryLinks = document.querySelectorAll(".dashboard-menu .menu-item");
+
+            // Get all the menu items
+            const menuItems = document.querySelectorAll(".dashboard-card");
+
+            // Add a click event listener to each category link
+            categoryLinks.forEach(link => {
+                link.addEventListener("click", () => {
+                    // Get the selected category
+                    const selectedCategory = link.getAttribute("data-category");
+
+                    console.log("Selected Category:", selectedCategory);
+
+                    // Show or hide menu items based on the selected category
+                    menuItems.forEach(item => {
+                        const itemCategory = item.getAttribute("data-category");
+                        if (selectedCategory === "all" || itemCategory === selectedCategory) {
+                            item.style.display = "block";
+                        } else {
+                            item.style.display = "none";
+                        }
+                    });
+
+                    // Add or remove the 'active' class to the category links
+                    categoryLinks.forEach(catLink => {
+                        catLink.classList.remove("active");
+                    });
+                    link.classList.add("active");
+                });
+            });
+        });
+
+
+        // this is for the search bar 
+        // Get the search input element and food cards
+        const searchInput = document.querySelector('.search-bar input');
+        const foodCards = document.querySelectorAll('.dashboard-card');
+
+        // Store the default CSS style for dashboard cards
+        //const defaultCardStyle = getComputedStyle(foodCards[0]);
+
+        // Add an input event listener to the search input
+        searchInput.addEventListener('input', () => {
+            const searchQuery = searchInput.value.toLowerCase().trim();
+
+            // Loop through all food cards
+            foodCards.forEach(card => {
+                const cardTitle = card.querySelector('h4').textContent.toLowerCase();
+
+                // Check if the card title contains the search query
+                if (cardTitle.includes(searchQuery)) {
+                    // If the search query is found, reset the card's style to the default
+                    card.style.cssText = defaultCardStyle.cssText;
+                } else {
+                    // If the search query is not found, hide the card
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>

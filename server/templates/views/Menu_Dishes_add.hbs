@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <!-- <link rel="stylesheet" href="/css/Menu_Dishes_add.css"> -->
+    <link rel="stylesheet" href="/css/Menu_Dishes_add.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <!-- -------------- Start of main ---------------- -->
+            <main>
+                <div class="addItemBox">
+                    <h2>Add New Item</h2>
+                    <div class="addItemBoxInside">
+                        <div class="addItemBoxInputField">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" required value="{{this.title}}" placeholder="New Item Name">
+
+                            <label for="description">Menu description</label>
+                            <textarea name="description" cols="95" rows="3">{{this.description}}</textarea>
+
+                            <label for="price">Price</label>
+                            <input type="number" name="price" value="{{this.price}}" required>
+
+                            <label for="size">Item Size</label>
+                            <input type="text" name="size" value="{{this.size}}"
+                                placeholder="Item variant size (half,Full,Large,Medium...)">
+
+                            <label for="category">Category</label>
+                            <select name="category">
+                                <option value="">Select a Category</option>
+                                {{#each categories}}
+                                <option value="{{this._id}}">{{this.title}}</option>
+                                {{/each}}
+                            </select>
+
+                            <label for="image">Image</label>
+                            <input type="file" name="image" accept="image/*">
+                            <span id="imageAlert" style="color: red;"></span>
+
+                            <div class="buttons">
+                                <button class="cancel-button" onclick="cancelNewItemAdd()">Cancel</button>
+                                <button class="submit-button" onclick="addNewItem()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="successPopup" class="popup">
+                    <div class="popup_content">
+                        <p><i class="fa-solid fa-check"></i>Item added successfully!</p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- ------------ End of Main --------------- -->
+
+        </div>
+    </div>
+    <script>
+
+        function addNewItem() {
+            const title = document.querySelector('input[type="text"]').value;
+            const description = document.querySelector('textarea').value;
+            const price = document.querySelector('input[name="price"]').value;
+            const size = document.querySelector('input[name="size"]').value;
+
+            const imageInput = document.querySelector('input[name="image"]');
+            const imageFile = imageInput.files[0]; // Get the selected file
+
+            const categorySelect = document.querySelector('select[name="category"]');
+            const selectedCategory = categorySelect.value;
+            
+            // Check if an image is selected
+            if (!imageFile) {
+                const imageAlert = document.querySelector('#imageAlert');
+                imageAlert.textContent = 'Please choose an image first.';
+                return; // Don't proceed further
+            }
+
+            // If an image is selected, clear the message
+            const imageAlert = document.querySelector('#imageAlert');
+            imageAlert.textContent = '';
+
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('price', price);
+            formData.append('size', size);
+            formData.append('image', imageInput.files[0]); // Assuming `imageInput` is an input element for the file
+
+            formData.append('category', selectedCategory);
+
+            fetch('/Menu_Dishes_add', {
+                method: 'POST',
+                body: formData,
+            })
+
+                .then(Response => Response.text())
+                .then(data => {
+                    $('#successPopup').fadeIn();
+                    console.log(data);
+
+                    // Clear input fields after success
+                    document.querySelector('input[name="title"]').value = '';
+                    document.querySelector('textarea[name="description"]').value = '';
+                    document.querySelector('input[name="price"]').value = '';
+                    document.querySelector('input[name="size"]').value = '';
+                    document.querySelector('input[name="image"]').value = ''; // Clear the file input
+
+                    // Hide the popup after 5 sec
+                    setTimeout(function () {
+                        $('#successPopup').fadeOut();
+                    }, 5000);
+                })
+                .catch(err => console.error('Error:', err));
+        }
+
+        function cancelNewItemAdd() {
+            window.location.href = '/Menu_Dishes';
+        }
+
+        $(document).ready(function () {
+            // Hide the popup when clicking anywhere on the window
+            $(window).click(function () {
+                $('#successPopup').fadeOut();
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <link rel="stylesheet" href="/css/homepage.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <!-- -------------- Start of main ---------------- -->
+            <main>
+                <h1>Dashboard</h1>
+                <div class="date">
+                    <input type="date" id="date" class="unstyled">
+                    <style>
+                        .unstyled::-webkit-inner-spin-button,
+                        .unstyled::-webkit-calendar-picker-indicator {
+                            display: none;
+                            -webkit-appearance: none;
+                        }
+                    </style>
+                    <script>
+                        document.getElementById('date').valueAsDate = new Date();
+                    </script>
+
+                </div>
+
+                <div class="insights">
+                    <div class="sales">
+                        <div><i class="fa fa-line-chart"></i></div>
+                        <div class="middle">
+                            <div class="left">
+                                <h1 id="menuItemCount"></h1>
+                                <h3>MENU ITEMS</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="items">
+                        <i class="fa fa-gift"></i>
+                        <div class="middle">
+                            <div class="left">
+                                <h1 id="categoryCount"></h1>
+                                <h3>CATEGORIES</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="orders">
+                        <i class="fa fa-shopping-basket"></i>
+                        <div class="middle">
+                            <div class="left">
+                                <h1 id="orderCount"></h1>
+                                <h3>ORDERS</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="recent-orders">
+                    <h2>Recent Orders</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Table Number</th>
+                                <th>Name</th>
+                                <th>Items</th>
+                                <th>Amount</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each orders}}
+                            <tr>
+                                <td>{{TableNumber}}</td>
+                                <td>{{name}}</td>
+                                <td>
+                                    {{#each items}}
+                                    {{this.itemName}}
+                                    {{#unless @last}}, {{/unless}}
+                                    {{/each}}
+                                </td>
+                                <td>{{totalPrice}}</td>
+                                <td><a href="#">Details</a></td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <a href="/Orders">Show All</a>
+                </div>
+            </main>
+            <!-- ------------ End of Main --------------- -->
+            <div class="right-side">
+                <!-- {{>right_top}} -->
+                <div class="right">
+                    <div class="top">
+                        <div class="profile">
+                            <div class="info">
+                                <p>Hey, <b>Dine_Delight</b></p>
+                                <small class="text-muted">Admin</small>
+                            </div>
+                            <div class="profile-photo">
+                                <img src="/images/Admin_image.png" alt="error">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="recent-updates">
+                    <h2>Recent Updates</h2>
+                    <div class="updates">
+                        <div class="update">
+                            <div class="profile-photo">
+                                <img src="/images/boy.png" alt="error">
+                            </div>
+                            <div class="message">
+                                <p><b>Mike Tyson</b> giving his order of Myonese Pizza</p>
+                                <div class="text-muted">2 Minutes ago</div>
+                            </div>
+                        </div>
+
+                        <div class="update">
+                            <div class="profile-photo">
+                                <img src="/images/boy.png" alt="error">
+                            </div>
+                            <div class="message">
+                                <p><b>Rishi Sharma</b> receiving his order of Berbecubs Pizza</p>
+                                <div class="text-muted">8 Minutes ago</div>
+                            </div>
+                        </div>
+
+                        <div class="update">
+                            <div class="profile-photo">
+                                <img src="/images/boy.png" alt="error">
+                            </div>
+                            <div class="message">
+                                <p><b>Kruti</b> receiving his order of Sandwitch</p>
+                                <div class="text-muted">15 Minutes ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="recent-updates g-qr">
+                    <h2>Generated QR</h2>
+                    <div class="updates12">
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+                        <script>    // 192.168.0.182
+                            const generateQRCode = () => {
+                                const qrText = "192.168.43.82:5000/UserMenu"; // Default value
+                                const canvas = document.createElement('canvas');
+                                const qr = new QRious({
+                                    element: canvas,
+                                    size: 200,
+                                    value: qrText
+                                });
+
+                                const qrImage = new Image();
+                                qrImage.src = canvas.toDataURL('image/png');
+                                document.querySelector('.updates12').appendChild(qrImage);
+                            };
+
+                            // Call the function when the page loads
+                            window.addEventListener('load', generateQRCode);
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        //       =======  For Count the Number of MenuItems  =======
+        const updateMenuItemCount = (count) => {
+            const menuItemCountElement = document.getElementById('menuItemCount');
+            if (menuItemCountElement) {
+                menuItemCountElement.innerText = count;
+            }
+        };
+
+        // Fetch the menu item count from the server
+        fetch('/getMenuItemCount')
+            .then(response => response.json())
+            .then(data => {
+                const menuItemCount = data.menuItemCount;
+                // Update the menu item count in the HTML
+                updateMenuItemCount(menuItemCount);
+            })
+            .catch(error => {
+                console.error('Error fetching menu item count:', error);
+                updateMenuItemCount(0); // Set count to 0 in case of an error
+            });
+
+
+        //      =======  For Count the Number of Categories  ========
+        const updateCategoryCount = (count) => {
+            const categoryCountElement = document.getElementById('categoryCount');
+            if (categoryCountElement) {
+                categoryCountElement.innerText = count;
+            }
+        };
+
+        // Fetch the category count from the server
+        fetch('/getCategoryCount')
+            .then(response => response.json())
+            .then(data => {
+                const categoryCount = data.categoryCount;
+                // Update the category count in the HTML
+                updateCategoryCount(categoryCount);
+            })
+            .catch(error => console.error('Error fetching category count:', error));
+
+
+        // ======= For Count the Number of Orders ========
+        const updateOrderCount = (count) => {
+            const OrderCountElement = document.getElementById('orderCount');
+            if (OrderCountElement) {
+                OrderCountElement.innerText = count;
+            }
+        };
+
+        // Fetch the order count from the server
+        fetch('/getorderCount')
+            .then(response => response.json())
+            .then(data => {
+                const OrderCount = data.OrderCount;
+                // Update the order count in the HTML
+                updateOrderCount(OrderCount);
+            })
+            .catch(error => console.error('Error fetching Order count:', error));
+
+
+    </script>
+
+    <!-- <script src="/javascript/orders.js"></script> -->
+    <script src="/javascript/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <link rel="stylesheet" href="/css/Menu_Dishes.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <!-- -------------- Start of main ---------------- -->
+            <main class="boxes">
+                <div class="upperbox">
+                    <div class="upperbox-text">
+                        <p>Menu Items</p>
+                    </div>
+                    <div class="upperbox-btn">
+                        <a href="Menu_Dishes_add" style="color:#000;font-size:16px">Add New Item</a>
+                    </div>
+                </div>
+                <div class="lowerbox">
+                    <h4>Menu Items List</h4>
+                    <div class="lowerbox-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Size</th>
+                                    <th>Category</th>
+                                    <th>Image</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each MenuItems}}
+                                <tr data-id="{{this._id}}" id="Menu_Dishes-{{this._id}}">
+                                    <td>{{this.title}}</td>
+                                    <td>{{this.description}}</td>
+                                    <td>{{this.price}}</td>
+                                    <td>{{this.size}}</td>
+                                    <td>{{this.category}}</td>
+                                    <td>
+                                        <img src="data:{{this.image.contentType}};base64,{{base64Image}}"
+                                            alt="{{this.title}}">
+                                    </td>
+                                    <td class="edit_column"><a
+                                            href="Menu_Dishes_add?id={{this._id}}&title={{this.title}}&description={{this.description}}&price={{this.price}}&size={{this.size}}"><i
+                                                class="fa-solid fa-pen-to-square"></i></a></td>
+                                    <td class="delete_column"><button onclick="confirmDelete('{{this._id}}')"><i
+                                                class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="successPopup" class="popup">
+                    <div class="popup_content">
+                        <p><i class="fa-solid fa-check"></i>Category deleted successfully!</p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- ------------ End of Main --------------- -->
+
+        </div>
+    </div>
+    <script>
+
+        function confirmDelete(id) {
+            if (confirm('Are you sure you want to delete this Item?')) {
+                deleteItem(id);
+            }
+        }
+
+        async function deleteItem(id) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('DELETE', `/deleteMenuItem/${id}`, false);  // Make it synchronous
+            xhr.send();
+
+            if (xhr.status === 200) {
+                // Item was deleted successfully, update the UI
+                const rowToDelete = document.querySelector(`#Menu_Dishes-${id}`);
+                if (rowToDelete) {
+                    rowToDelete.remove();
+                    $('#successPopup').fadeIn();
+                    console.log('Popup shown');
+                    setTimeout(function () {
+                        $('#successPopup').fadeOut();
+                        console.log('Popup Fade');
+                    }, 3000);
+                }
+
+            } else {
+                // The deletion failed, show an error message
+                alert('Failed to delete Item. Please try again later!');
+            }
+        }
+        $(document).ready(function () {
+            // Hide the popup when clicking anywhere on the window
+            $(window).click(function () {
+                $('#successPopup').fadeOut();
+            });
+        });
+
+    </script>
+</body>
+
+</html>

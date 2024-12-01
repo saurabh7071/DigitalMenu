@@ -1,0 +1,155 @@
+/* General styles for all views */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.order {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.sub-heading {
+    font-size: 24px;
+    color: #333;
+}
+
+.heading {
+    font-size: 36px;
+    color: #e8491d;
+    margin-bottom: 30px;
+}
+
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.inputBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.input {
+    flex-basis: calc(50% - 10px);
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="datetime-local"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #e8491d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    background-color: #333;
+}
+
+/* Order items display styles */
+.order-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cart-item {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.cart-item-image {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.remove-item-button {
+    background-color: #e8491d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.remove-item-button:hover {
+    background-color: #333;
+}
+
+/* Media queries for different screen sizes */
+@media only screen and (max-width: 768px) {
+    /* Styles for tablets and smaller screens */
+    form {
+        max-width: 90%;
+    }
+
+    .input {
+        flex-basis: 100%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    /* Styles for mobile phones */
+    .heading {
+        font-size: 28px;
+      padding:20px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="datetime-local"],
+    textarea {
+        font-size: 14px;
+
+    }
+  .section{
+    padding:20px;
+    margin-left:30px;
+  }
+  .order {
+        padding: 40px 0; 
+    }
+}
+

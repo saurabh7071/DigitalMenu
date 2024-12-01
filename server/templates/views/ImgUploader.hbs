@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <link rel="stylesheet" href="/css/ImgUploader.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <!-- -------------- Start of main ---------------- -->
+            <main class="boxes">
+                <div class="upperbox">
+                    <div class="upperbox-text">
+                        <p>Image Uploader</p>
+                    </div>
+                    <div class="upperbox-btn">
+                        <a href="ImgUploader_add" style="color:#000;font-size:16px">Upload Image</a>
+                    </div>
+                </div>
+                <div class="lowerbox">
+                    <h4>Banner Details</h4>
+                    <div class="lowerbox-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each images}}
+                                <tr data-id="{{this._id}}" id="images-{{this._id}}">
+                                    <td id="title-cell-{{this._id}}">{{this.title}}</td>
+                                    <td>
+                                        <img src="data:{{this.image.contentType}};base64,{{base64Image}}"
+                                            alt="{{this.title}}">
+                                    </td>
+                                    <!-- <td class="edit_column"><a
+                                            href="ImgUploader_add?id={{this._id}}&title={{this.title}}"><i
+                                                class="fa-solid fa-pen-to-square"></i></a>
+                                    </td> -->
+                                    <td class="edit_column">
+                                        <a href="ImgUploader_add?id={{this._id}}&title={{this.title}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    </td>
+                                      
+                                    <td class="delete_column"><button onclick="DeleteData('{{this._id}}')"><i
+                                                class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="successPopup" class="popup">
+                    <div class="popup_content">
+                        <p><i class="fa-solid fa-check"></i>Data deleted successfully!</p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- ------------ End of Main --------------- -->
+
+        </div>
+    </div>
+    <script>
+
+        function DeleteData(id) {
+            if (confirm('Are you sure you want to delete this Item?')) {
+                deleteImg(id);
+            }
+        }
+
+        async function deleteImg(id) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('DELETE', `/deleteImage/${id}`, true);  // Make it synchronous
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Item was deleted successfully, update the UI
+                        const rowToDelete = document.querySelector(`#images-${id}`);
+                        if (rowToDelete) {
+                            rowToDelete.remove();
+                            $('#successPopup').fadeIn();
+                            console.log('Popup shown');
+                            setTimeout(function() {
+                                $('#successPopup').fadeOut();
+                                console.log('Popup fade');
+                            }, 3000);
+                        }
+                    } else {
+                        // The deletion failed, show an error message
+                        alert('Failed to delete Data. Please try again later!');
+                    }
+                }
+            };
+            xhr.send();
+        }
+        setTimeout(function () {
+            $('#successPopup').fadeOut();
+        }, 3000);
+
+        $(document).ready(function () {
+            // Hide the popup when clicking anywhere on the window
+            $(window).click(function () {
+                $('#successPopup').fadeOut();
+            });
+        });
+
+    </script>
+</body>
+
+</html>

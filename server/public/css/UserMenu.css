@@ -1,0 +1,560 @@
+:root{
+    --mainColor:#f6f8fa;
+    --darkBlack: #17181D;
+    --darkGrey: #61666b;
+    --grey: #d5d5d5;
+    --lightGrey: #f2f2f2;
+    --yellow: #fecb40;
+    --red: #df113c;
+    --orange: #F78361;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+body {
+    background-color: #ebf2ff;
+    width: 100%;
+    height: auto;
+    color: var(--darkBlack);
+}
+
+p {
+    font-size: 14px;
+}
+
+.login-btn {
+    position: fixed;
+    width: 100px;
+    height: 35px;
+    border: 2px solid #d5d5d5;
+    border-radius: 20px;
+    box-shadow: rgb(224, 211, 211) 0px 1px 4px;
+    background-color: var(--orange);
+    top: 15px;
+    right: 60px;
+    z-index: 3;   /*4*/
+    cursor: pointer;
+}
+.login-btn a{
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.label-cart{
+    position: fixed;
+    top: 15px;
+    right: 10px;
+    z-index: 4;
+    cursor: pointer;
+}
+
+.logo{
+    position: fixed;
+    background-color: var(--darkBlack);
+    color: var(--lightGrey);
+    width: 100%;
+    height: 60px;
+    /*text-align: center; */
+    padding: 15px 0 15px 10px;
+    top: 0;
+    z-index: 2;
+}
+
+.search-bar {
+    position: fixed;
+    top: 10px;
+    left: 50%; /* Center the search bar horizontally */
+    transform: translateX(-50%); /* Center the search bar horizontally */
+    border-bottom: 2px solid #fff;
+    /* background-color: var(--mainColor); */
+    width: 300px; /* Adjust the width as needed */
+    height: 30px; /* Set the desired height */
+    z-index: 2; /* Place it in front of the logo and sidebar */
+    display: flex;
+    align-items: center;
+    padding: 0 10px; /* Add padding to space elements within the search bar */
+}
+
+.search-bar > .fas {
+    color: #fff;
+    font-size: 1rem; /* Adjust the size as needed */
+}
+
+.search-bar > input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #fff;
+    width: 100%; 
+    padding-left: 10px; /* Add padding to space the text properly */
+}
+
+ .dashboard {
+    height: 100%;
+    width: 100%;
+    padding-right: 360px;
+    padding-left: 20px;
+ }
+
+ .dashboard-banner {
+     width: 100%;
+    height: 580px;
+    position: relative;
+    margin-top: 3rem;
+    padding: 1rem;
+    border-radius: 30px;
+    cursor: pointer; 
+}
+
+ .dashboard-banner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+ } 
+ 
+
+ .banner-promo {
+    position: absolute;
+    color: var(--lightGrey);
+    top: 25%;
+    left: 10%;
+    font-weight: 1000;
+ } 
+
+.banner-promo > h1 > span{
+    color: var(--yellow);
+}
+
+.dashboard-title {
+    padding: 0 1rem;
+    margin-bottom: 20px;
+} 
+
+.dashboard-menu {
+    display: flex;
+    gap: 40px;
+    padding: 0.3rem 1rem;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+ .dashboard-menu > a {
+   text-decoration: none;
+   text-align: center;
+   border-radius: 20px;
+   min-width: 120px;
+   padding: 0.5rem 0;
+   font-size: 0.9rem;
+   color: var(--darkBlack);
+   background-color: var(--yellow);
+   cursor: pointer;
+}
+
+.dashboard-menu > a:hover {
+    background-color: var( --red);
+    color: var(--lightGrey);
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.dashboard-card {
+    background-color: var(--mainColor);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+}
+
+.dashboard-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px ;
+} 
+
+.dashboard-card .card-image {
+    width: 100%;   /* it will before 100% */
+    height:250px;    
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.card-detail {
+    padding: 10px;
+}
+
+.card-detail > h4 > span {
+    float: right;
+}
+
+.card-time {
+    color: var(--darkGrey);
+    font-size: 0.8rem;
+    padding-top: 10px;
+}
+
+.dashboard-card {
+    position: relative;
+}
+
+.add-to-cart-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: var(--orange);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    /* Additional styles as needed */
+}
+
+.add-to-cart-btn:hover {
+    background-color: #c0392b; /* Darker color on hover */
+}
+
+
+.dashboard-menu .active {
+    background-color: var(--red);
+    color: var(--lightGrey);
+}
+
+/* <!-- order dashboard --> */
+ .dashboard-order {
+    width: 340px;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1.5rem;
+    background-color: var(--mainColor);
+    z-index: 3;
+} 
+
+.dashboard-text {
+    margin-top: 45px;
+}
+
+.dashboard-order .dashboard-text > h3 {
+    padding: 0 5px 10px 0px;
+}
+
+.order-address > h4 {
+    line-height: 2;
+}
+
+.order-time{
+    font-size: 0.8rem;
+    color: var(--darkGrey);
+}
+ 
+.cart-wrapper > h3 {
+    margin-top: 15px;
+}
+
+/* Style each added food item */
+.cart-item.added-food {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.cart-item-image.added-food {
+    width: 50px; 
+    height: 50px; 
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.item-name.added-food {
+    font-weight: 500;
+    flex: 1; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.item-price.added-food {
+    margin-left: 5px; /* Adjust margin as needed */
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+/* Style the "Close" button for each added food item */
+.close-food-button {
+    background-color: #e00d0d;
+    color: #fff;
+    border: none;
+    padding: 5px 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    border-radius: 5px;
+}
+
+/* Add a hover effect for the close button */
+.close-food-button:hover {
+    background-color: #c0392b; /* Darker color on hover */
+}
+
+#close-cart {
+    background-color: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+}
+
+ /* Style the total price  */
+.total {
+    font-size: 1.10rem;
+    font-weight: 600;
+    margin-top: 2dvb;
+} 
+
+
+/* custom scroll */
+.order-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+
+.order-wrapper::-webkit-scrollbar-track{
+    background-color: var(--lightGrey);
+    border-radius: 20px;
+}
+
+.order-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--darkGrey);
+    border-radius: 20px;
+}
+
+
+.divider {
+    width: 100%;
+    border: 1px dashed var(--grey);
+}
+
+.order-total > p {
+    padding: 10px 0;
+}
+
+.order-total > p > span {
+    float: right;
+    font-weight: 600;
+}
+
+.order-promo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--lightGrey);
+    border: 2px solid var(--grey);
+    border-radius: 10px;
+    height: 45px;
+    padding: 0 5px;
+    margin: 5px 0 10px 0;
+
+}
+
+.input_promo {
+    height: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+.button-promo {
+    float: right;
+    background-color: var(--yellow);
+    border: none;
+    border-radius: 5px;
+    height: 80%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.checkout{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    background-color: var(--red);
+    border: none;
+    border-radius: 5px;
+    color: var(--lightGrey);
+    cursor: pointer;
+    text-decoration: none;
+    padding:3px 10px;
+}
+
+.checkout:hover {
+    background: #e00d0d;
+}
+
+#cart {
+    display: none;
+}
+
+#cart:checked ~ .label-cart {
+    color: var(--lightGrey);
+}
+
+
+#cart:checked ~ .dashboard {
+    padding-right: 10px;
+}
+
+#cart:checked ~ .dashboard-order {
+    display: none;
+}
+
+#cart:checked ~ .logo {
+    padding-right: 0px;
+}
+
+/* Larger Desktop Screens */
+@media screen and (min-width: 1025px) {
+    /* Adjust styles for larger desktop screens here */
+    /* You can add specific styles for larger screens */
+
+    .logo {
+        /* Keep the logo at the leftmost side of the page */
+        /* left: 0; */
+        padding: 15px 0 15px 10px;
+    }
+    .logo-text {
+        /* padding: 10px 15px 15px 0px; */
+        font-size: 1rem;
+       left: 20px;
+    }
+
+    .search-bar {
+        /* Center the search bar horizontally */
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px; /* Adjust the width as needed */
+        padding: 0 10px; /* Add padding to space elements within the search bar */
+    }
+}
+
+/* Tablets and Small Laptops */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .logo {
+        /* Keep the logo at the leftmost side of the page */
+        left: 0;
+    }
+
+    .search-bar {
+        /* Center the search bar horizontally */
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px; 
+        padding: 0 10px; 
+    }
+}
+
+/* Tablets */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    /* Adjust styles for tablets here */
+    /* You can add specific styles for tablet devices */
+
+    .logo {
+        /* Keep the logo at the leftmost side of the page */
+        left: 0;
+    }
+
+    .search-bar {
+        /* Center the search bar horizontally */
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20%; /* Adjust the width as needed */
+        padding: 0 5px; /* Adjust padding as needed */
+    }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 440px) { 
+    .logo{
+        background-color: var(--darkBlack);
+        color: #FA2555;
+        width: 100%;
+        height: 90px;
+        text-align: left;
+        padding: 10px 0px 15px 10px;
+        top: 0;
+        z-index: 2;
+    }        /* this was before 480px */
+    .logo-text {
+        /* padding: 10px 15px 15px 0px; */
+        font-size: 0.9rem;
+        margin-right: 80px;
+    }
+
+    .label-cart{
+        top: 10px;
+        right: 30px;
+        z-index: 4;
+        cursor: pointer;
+    }
+
+    .login-btn {
+        top: 50px;
+        width: 75px;
+        height: 30px;
+        right: 10px;
+    }
+
+    .search-bar {
+        /* Center the search bar horizontally */
+        top: 40px;
+        left: 40%; /* Center the search bar horizontally */
+        transform: translateX(-90%); /* Center the search bar horizontally */
+        width: 40%; /* Adjust the width as needed */
+        padding: 0 5px; /* Adjust padding as needed */
+    }
+
+    .dashboard {
+        padding-right: 0;
+    }
+
+    .dashboard-banner {
+       width: 100%;
+       height: 350px;
+       position: relative;
+       margin-top: 5.2rem;
+       padding: 1rem;
+       padding-left: 0;
+       padding-right: 0;
+       border-radius: 30px;
+       cursor: pointer; 
+   }
+
+   .dashboard-banner > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 30px;
+    } 
+
+    .dashboard-order {
+        width: 90%;    /*it was before 100% */
+        right: 0;       /*it was before left: 0; */
+    }
+
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/css/Order_Details.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</head>
+
+<body>
+
+    <section class="order" id="order">
+
+        <h3 class="sub-heading">Order Details</h3>
+
+        <form action="" method="post">
+
+            <div class="inputBox">
+                <div class="input">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter Your Name">
+                </div>
+                <div class="input">
+                    <label for="number">Your Phone Number</label>
+                    <input type="tel" id="number" name="PhoneNumber" placeholder="Enter Your Table number">
+                </div>
+            </div>
+
+            <div class="inputBox">
+                <div class="input">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Your Email">
+                </div>
+                <div class="input">
+                    <label for="TableNumber">Your Table Number</label>
+                    <input type="number" id="TableNumber" name="TableNumber" placeholder="Enter Your Table number ">
+                </div>
+            </div>
+
+            <div class="order-items-container">
+                {{#each cart.items}}
+                <div class="cart-item">
+                    <img src="{{this.img}}" alt="{{this.name}}" class="cart-item-image">
+                    <span class="item-name">{{this.name}}</span>
+                    <span class="item-price">${{formatCurrency this.price}}</span>
+                    <button class="remove-item-button" onclick="removeItem('{{this.name}}')">Remove</button>
+                </div>
+                {{/each}}
+            </div>
+
+            <div id="total-price-container">
+                <!-- Total price will be displayed here -->
+
+            </div>
+
+            <input type="submit" value="Order Now" class="btn">
+
+        </form>
+    </section>
+    <script>
+        // Function to retrieve cart data from local storage
+        function getCartFromLocalStorage() {
+            const cartData = localStorage.getItem("cart");
+            return cartData ? JSON.parse(cartData) : { items: [] };
+        }
+
+        // Retrieve cart data and update the display on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            const cart = getCartFromLocalStorage();
+            const orderItemsContainer = document.querySelector(".order-items-container");
+            const totalPriceContainer = document.getElementById("total-price-container");
+            orderItemsContainer.innerHTML = "";
+            cart.items.forEach(item => {
+                const itemElement = document.createElement("div");
+                itemElement.classList.add("cart-item", "added-food");
+
+                const itemImage = document.createElement("img");
+                itemImage.src = item.img;
+                itemImage.alt = item.name;
+                itemImage.classList.add("cart-item-image", "added-food");
+
+                const itemName = document.createElement("span");
+                itemName.textContent = item.name;
+                itemName.classList.add("item-name", "added-food");
+
+                const itemPrice = document.createElement("span");
+                itemPrice.textContent = `$${item.price.toFixed(2)}`;
+                itemPrice.classList.add("item-price", "added-food");
+
+                const closeButton = document.createElement("button");
+                closeButton.textContent = "Remove";
+                closeButton.classList.add("close-food-button");
+                closeButton.addEventListener("click", () => {
+                    removeItemFromCart(item);
+                });
+
+                itemElement.appendChild(itemImage);
+                itemElement.appendChild(itemName);
+                itemElement.appendChild(itemPrice);
+                itemElement.appendChild(closeButton);
+                orderItemsContainer.appendChild(itemElement);
+
+
+            });
+
+            // Calculate the total by summing up subtotal, tax, and any other fees
+            const total = cart.subtotal + cart.tax;
+
+            // Update the total in the cart object
+            cart.total = total;
+            totalPriceContainer.textContent = `$${total.toFixed(2)}`;
+
+
+            const orderForm = document.querySelector('form');
+
+            orderForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                // Get the items data from localStorage
+                const itemsData = JSON.parse(localStorage.getItem("cart")).items;
+
+                // Create an array of items with the required structure
+                const items = itemsData.map(item => ({ itemName: item.name }));
+
+                // Create an object with the form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    PhoneNumber: document.getElementById('number').value,
+                    email: document.getElementById('email').value,
+                    TableNumber: document.getElementById('TableNumber').value,
+                    items: items,  // Correctly formatted array of items
+                    totalPrice: parseFloat(document.getElementById('total-price-container').textContent.replace('$', '')),
+                    // Add other form fields as needed
+                };
+
+                try {
+                    const response = await fetch('/Order_Details', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    if (response.ok) {
+                        // Display a success message using SweetAlert2
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Order Placed Successfully!',
+                            showConfirmButton: false,
+                            timer: 3000  // Automatically close after 1.5 seconds
+                        });
+
+                        // Redirect to the UserMenu page after a delay
+                        setTimeout(() => {
+                            window.location.href = '/UserMenu';
+                        }, 1500);
+                    } else {
+                        // Handle the error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error Placing Order',
+                            text: 'Please try again.',
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error submitting order:', error);
+                }
+            });
+
+        });
+
+        // Function to remove an item from the cart
+        function removeItem(name) {
+            // Use an AJAX request or similar to notify the server to remove the item
+            // For simplicity, let's just reload the page in this example
+            location.reload();
+        }
+
+
+        // Retrieve cart data and update the display on page load
+        const cart = getCartFromLocalStorage();
+        const orderItemsContainer = document.querySelector(".order-items-container");
+
+        orderItemsContainer.innerHTML = "";
+        cart.items.forEach(item => {
+            const itemElement = document.createElement("div");
+            itemElement.classList.add("cart-item");
+
+            // Create elements for the item details (similar to your UserMenu_Cart.js)
+
+            orderItemsContainer.appendChild(itemElement);
+        });
+    </script>
+</body>
+
+</html>

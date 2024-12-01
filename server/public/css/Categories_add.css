@@ -1,0 +1,172 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+:root{
+    --lato: 'Lato',sans-serif;
+    --poppins: 'poppins',sans-serif;
+
+    --light: #ffffff;
+    --color-background: linear-gradient(106.37deg, #ffe1bc 29.63%,#ffcfd1 51.55%, #f3c6f1 90.85%);
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --orange: #fca61f;
+    --yellow: linear-gradient(180deg, #F8D49A -146.42%, #FAD79D -46.42%);
+    --dark-orange:#FF4C01;
+    --light-green:#29A22E;
+    --gradient: #FF5B62;
+    --dark-pink: #FA2555;
+    --black: #242d49;
+    --purple: linear-gradient(180deg, #BB67FF 0%, #C484F3 100%);
+    --light-purple:#7380ec;
+    --color-success: #41f1b6;
+    --pink: #FF919D;
+    --boxShadow: 0px 19px 60px rgb(0 0 0 / 8%);
+    --smboxShadow: -79px 51px 60px rgba(0, 0, 0, 0.08);
+    --activeItem:#f799a354;
+    --glass: rgba(255, 255, 255, 0.54);
+    --color-light: rgba(132, 139, 200, 0.18);
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding-bottom:0px ;
+}
+
+.main{
+    background: var(--color-background);
+    height: 130vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.bigBox{
+    display: grid;
+    height: 95%;
+    width: 97%;
+    border-radius: 2rem;
+    background-color: var(--glass);
+    overflow: hidden;
+    grid-template-columns: 13.5rem auto;
+}
+
+main {
+    margin: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main .addCategorieBox{
+    width: 80%;
+    padding: 20px;
+    margin: 25px;
+    background: #fff;
+    border-radius: 10px; 
+}
+main .addCategorieBox h2{
+    margin-bottom: 30px;
+}
+
+/* Styles for addCategorieBoxInside */
+main .addCategorieBoxInside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styles for addCategorieBoxInputField */
+main .addCategorieBoxInputField {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Styles for labels */
+main .addCategorieBoxInputField label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Styles for input fields and textarea */
+main .addCategorieBoxInputField input[type="text"],
+main .addCategorieBoxInputField textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styles for buttons */
+.main .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.main .buttons button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.main .cancel-button {
+    background-color: var(--dark-pink);
+    color: white;
+}
+
+.main .cancel-button:hover {
+    background-color: #be0a34;
+}
+
+.main .submit-button {
+    background-color: var(--light-green);
+    color: white;
+}
+
+.main .submit-button:hover {
+    background-color: #077a0d;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #4caf50; /* Success color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.popup-content {
+    display: flex;
+    align-items: center;
+}
+.popup_content i {
+    margin-right: 10px; /* Adjust spacing as needed */
+    font-size: 18px;
+}
+.popup-content p {
+    display: inline-block;
+    vertical-align: middle; /* Adjust as needed */
+    font-size: 26px;
+}

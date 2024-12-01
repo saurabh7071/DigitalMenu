@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="/css/Sidebar.css">
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="/images/logo.png" alt="error">
+            <span>
+                Dine<span>/</span>Delight
+            </span>
+        </div>
+
+        <div class="menu">
+            <div class="menuItem">
+                <a href="/Home" class="nav-link" id="dashboard">
+                    <i class="fa fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/Categories" class="nav-link" id="categories">
+                    <i class="fa fa-pencil-square-o"></i>
+                    <span>Categories</span>
+                </a>
+                <a href="/Menu_Dishes" class="nav-link" id="menudishes">
+                    <i class="fa fa-th-list"></i>
+                    <span>Menu Dishes</span>
+                </a>
+                <a href="/Orders" class="nav-link" id="orders">
+                    <i class="fa fa-codiepie"></i>
+                    <span>Orders</span>
+                </a>
+                <!-- <a href="/Messages" class="nav-link" id="messages">
+                    <i class="fa fa-envelope-o"></i>
+                    <span>Messages</span>
+                    <span id="message">26</span>
+                </a> -->
+                <a href="/QR_Code" class="nav-link" id="qrcode">
+                    <i class="fa fa-qrcode"></i>
+                    <span>QR Code</span>
+                </a>
+                <!-- <a href="#" class="nav-link" id="testimonial">
+                    <i class="fa fa-street-view"></i>
+                    <span>Testimonials</span>
+                </a> -->
+                <a href="/ImgUploader" class="nav-link" id="imguploader">
+                    <i class="fa fa-upload"></i>
+                    <span>Image Uploader</span>
+                </a>
+                <a href="/signout" class="nav-link" id="signout">
+                    <i class="fa fa-sign-out"></i>
+                    <!-- <span>Sign Out</span> -->
+                    <button id="signout-button" style="background: transparent">Sign Out</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/javascript/index.js"></script>
+    <script>
+        // Add this to your JavaScript file
+        document.getElementById('signout-button').addEventListener('click', function () {
+            // Display a confirmation dialog
+            const confirmSignout = confirm('Are you sure you want to sign out?');
+
+            // Check if the user confirmed signout
+            if (confirmSignout) {
+                // Redirect to the sign-out route or perform your sign-out logic
+                window.location.href = '/signout'; // Replace with your sign-out route
+            }
+        });
+
+    </script>
+</body>

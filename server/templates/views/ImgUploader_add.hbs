@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Dine_Delight</title>
+    <link rel="stylesheet" href="/css/ImgUploader_add.css">
+    <script src="https://kit.fontawesome.com/ce75bd9e29.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Inter:wght@400;500;700&family=Lora:wght@700&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="bigBox">
+            {{>Sidebar}}
+            <!-- -------------- Start of main ---------------- -->
+            <main>
+                <div class="addItemBox">
+                    <h2>Upload Banner Image</h2>
+                    <div class="addItemBoxInside">
+                        <div class="addItemBoxInputField">
+                            <!-- <label for="title">Title</label>
+                            <input type="text" name="title" required value="{{this.title}}" placeholder="Banner Name">
+
+                            <label for="image">Image</label>
+                            <input type="file" name="image" accept="image/*">
+                            <span id="imageAlert" style="color: red;"></span>
+                            
+                            <div class="buttons">
+                                <button class="cancel-button"  onclick="cancelNewItemAdd()">Cancel</button>
+                                <button class="upload-button" onclick="uploadImage()">Upload</button>
+                            </div> -->
+                            <label for="title">Title</label>
+                            <input type="text" name="title" required {{#if item}}value="{{item.title}}" {{/if}}
+                                placeholder="Banner Name">
+
+                            <label for="image">Image</label>
+                            <input type="file" name="image" accept="image/*">
+                            <span id="imageAlert" style="color: red;"></span>
+
+                            {{#if item}}
+                            <img id="imagePreview" src="{{item.base64Image}}" alt="Image Preview"
+                                style="max-width: 100%; max-height: 300px;">
+                            {{/if}}
+
+                            <div class="buttons">
+                                <button class="cancel-button" {{#if item}}onclick="cancelEdit()"
+                                    {{else}}onclick="cancelNewItemAdd()" {{/if}}>
+                                    {{#if item}}Cancel{{else}}Cancel{{/if}}
+                                </button>
+                                <button class="upload-button" {{#if item}}onclick="updateImage('{{item._id}}')"
+                                    {{else}}onclick="uploadImage()" {{/if}}>
+                                    {{#if item}}Save Changes{{else}}Upload{{/if}}
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="successPopup" class="popup">
+                        <div class="popup_content">
+                            <p><i class="fa-solid fa-check"></i>Image Uploaded successfully!</p>
+                        </div>
+                    </div>
+            </main>
+
+            <!-- ------------ End of Main --------------- -->
+
+        </div>
+    </div>
+    <script>
+        /*
+            function uploadImage() {
+                const title = document.querySelector('input[type="text"]').value;
+    
+                const imageInput = document.querySelector('input[name="image"]');
+                const imageFile = imageInput.files[0]; // Get the selected file
+    
+                // Check if an image is selected
+                if (!imageFile) {
+                    const imageAlert = document.querySelector('#imageAlert');
+                    imageAlert.textContent = 'Please choose an image first.';
+                    return; // Don't proceed further
+                }
+    
+                // Display the image preview
+                const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = URL.createObjectURL(imageFile);
+                imagePreview.style.display = 'block';
+    
+                // If an image is selected, clear the message
+                const imageAlert = document.querySelector('#imageAlert');
+                imageAlert.textContent = '';
+    
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('image', imageInput.files[0]); // Assuming `imageInput` is an input element for the file
+    
+                fetch('/ImgUploader_add', {
+                    method: 'POST',
+                    body: formData,
+                })
+    
+                    .then(Response => Response.text())
+                    .then(data => {
+                        $('#successPopup').fadeIn();
+                        console.log(data);
+    
+                        // Clear input fields after success
+                        document.querySelector('input[name="title"]').value = '';
+                        document.querySelector('input[name="image"]').value = ''; // Clear the file input
+    
+                        // Hide the popup after 5 sec
+                        setTimeout(function () {
+                            $('#successPopup').fadeOut();
+                        }, 5000);
+                    })
+                    .catch(err => console.error('Error:', err));
+            }
+        */
+        function uploadImage() {
+            const title = document.querySelector('input[type="text"]').value;
+
+            const imageInput = document.querySelector('input[name="image"]');
+            const imageFile = imageInput.files[0];
+
+            // Check if an image is selected
+            if (!imageFile) {
+                const imageAlert = document.querySelector('#imageAlert');
+                if (imageAlert) {
+                    imageAlert.textContent = 'Please choose an image first.';
+                }
+                return;
+            }
+
+            const imageAlert = document.querySelector('#imageAlert');
+            if (imageAlert) {
+                imageAlert.textContent = '';
+            }
+
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('image', imageInput.files[0]);
+
+            fetch('/ImgUploader_add', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(Response => Response.text())
+                .then(data => {
+                    const titleInput = document.querySelector('input[name="title"]');
+                    const imageInput = document.querySelector('input[name="image"]');
+
+                    if (titleInput) {
+                        titleInput.value = '';
+                    }
+                    if (imageInput) {
+                        imageInput.value = '';
+                    }
+
+                    $('#successPopup').fadeIn();
+                    console.log(data);
+
+                    setTimeout(function () {
+                        $('#successPopup').fadeOut();
+                    }, 5000);
+                })
+                .catch(err => console.error('Error:', err));
+        }
+
+        function updateImage(imageId) {
+            console.log('Updating image with ID:', imageId);
+            const newTitle = document.querySelector('input[name="title"]').value;
+            const formData = new FormData();
+            formData.append('title', newTitle);
+        
+            fetch(`/updateImage/${imageId}`, {
+                method: 'PUT',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(updatedImage => {
+                if (updatedImage.success) {
+                    // Update the image title in the table cell
+                    const titleCell = document.querySelector(`#title-cell-${imageId}`);
+                    titleCell.textContent = newTitle;
+                    
+                    // Add any other actions you want to perform after saving changes
+                    // For example, closing the edit mode.
+                } else {
+                    console.error('Error updating image:', updatedImage.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating image:', error);
+            });
+        }
+        
+
+
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            const title = urlParams.get('title');
+            if (id && title) {
+                // Populate the fields if it's an edit operation
+                document.querySelector('input[name="title"]').value = title;
+
+                // Fetch and display the image if it's an edit operation
+                const imagePreview = document.getElementById('imagePreview');
+                const imageInput = document.querySelector('input[name="image"]'); // Updated line
+
+                // You can use the base64Image data to populate the image
+                const base64Image = "data:{{this.image.contentType}};base64,{{base64Image}}";
+                imagePreview.src = base64Image;
+                imagePreview.style.display = 'block';
+
+                // Allow changing the image by showing the file input
+                imageInput.style.display = 'block';
+            }
+        })();
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            function uploadImage() {
+                const title = document.querySelector('input[type="text"]').value;
+
+                // Check if an image is selected
+                const imageInput = document.querySelector('input[name="image"]');
+                const imageFile = imageInput.files[0];
+
+                // Check if an image is selected
+                if (!imageFile) {
+                    const imageAlert = document.querySelector('#imageAlert');
+                    imageAlert.textContent = 'Please choose an image first.';
+                    return; // Don't proceed further
+                }
+
+                // If an image is selected, clear the message and display the image input
+                const imageAlert = document.querySelector('#imageAlert');
+                imageAlert.textContent = '';
+
+                // Display the image input
+                imageInput.style.display = 'block';
+
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('image', imageInput.files[0]);
+
+                fetch('/ImgUploader_add', {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(Response => Response.text())
+                    .then(data => {
+                        $('#successPopup').fadeIn();
+                        console.log(data);
+
+                        // Clear input fields after success
+                        document.querySelector('input[name="title"]').value = '';
+                        document.querySelector('input[name="image"]').value = ''; // Clear the file input
+
+                        // Hide the popup after 5 sec
+                        setTimeout(function () {
+                            $('#successPopup').fadeOut();
+                        }, 5000);
+                    })
+                    .catch(err => console.error('Error:', err));
+            }
+
+            function cancelNewItemAdd() {
+                window.location.href = '/ImgUploader';
+            }
+
+            // Hide the popup when clicking anywhere on the window
+            $(window).click(function () {
+                $('#successPopup').fadeOut();
+            });
+        });
+
+
+        function cancelNewItemAdd() {
+            window.location.href = '/ImgUploader';
+        }
+
+        function cancelEdit() {
+            // You can add code here to handle the cancel action.
+            // For example, redirect to the ImgUploader page:
+            window.location.href = '/ImgUploader';
+        }
+
+        const imagePreview = document.getElementById('imagePreview');
+        if (typeof item !== 'undefined' && item) {
+            imagePreview.style.display = 'block';
+        } else {
+            imagePreview.style.display = 'none';
+        }
+
+
+        $(document).ready(function () {
+            // Hide the popup when clicking anywhere on the window
+            $(window).click(function () {
+                $('#successPopup').fadeOut();
+            });
+        });
+    </script>
+</body>
+
+</html>
