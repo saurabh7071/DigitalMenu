@@ -9,7 +9,7 @@ This project is a web-based Digital Menu System designed to revolutionize the di
 * 📊 Admin Dashboard: Manage menu items, update prices, and track orders in real time.
 * 🌐 Responsive Design: Optimized for desktops, tablets, and mobile devices.
 ## Tech Stack
-* **Frontend:** HTML5, CSS3, JavaScript, React.js
+* **Frontend:** HTML5, CSS3, JavaScript
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB
 * **Other Tools:** Qrious (QR code generation)
@@ -18,7 +18,20 @@ This system is ideal for restaurants looking to modernize their ordering process
 ## Installation
 Step-by-step instructions on how to set up the project locally:
 1. Clone the repository.
+   
    ```bash
-     git clone https://github.com/username/repository.git
-
+     git clone https://github.com/saurabh7071/DigitalMenu.git
    ```
+2. Install Dependencies.
+
+   ```bash
+     npm install
+   ```
+3. Set up environment variables in a ```.env``` file. Provide a sample ```.env.example``` for reference.
+4. Start the Application
+
+   ```bash
+     npm start
+   ```
+## Project Demo
+
