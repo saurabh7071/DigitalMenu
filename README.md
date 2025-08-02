@@ -34,7 +34,7 @@
 ---
 <div align="left">
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
    - [Why DigitalMenu?](#-why-digitalmenu-)
