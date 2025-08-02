@@ -39,7 +39,7 @@
 - [Overview](#overview)
    - [Why DigitalMenu?](#-why-digitalmenu-)
    - [What the Application Does](#-what-the-application-does-)
-   - [Challenges Faced](#challenges-faced-)
+   - [Challenges Faced](#challenges-faced)
 - [Getting Started](#getting-started-)
 - [Project Screenshots](#project-screenshots)
 - [Team](#team-)
